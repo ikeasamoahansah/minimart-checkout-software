@@ -1,21 +1,34 @@
 import sqlite3
 
-# Connect to a database
-conn = sqlite3.connect('minimart.db')
+import pandas as pd
 
-# Create a cursor
-c = conn.cursor()
+FILE_NAME = 'data.xls'
+df = pd.read_excel(FILE_NAME)
 
-# Create DB Table
-c.execute("""CREATE TABLE products(
+
+class Database:
+
+    def __init__(self):
+        self.conn = sqlite3.connect('inventory.db')
+        self.create()
+        self.populate_data()
+        self.cursor = self.conn.cursor()
+        self.conn.commit()
+        self.conn.close()
+        
+    def create(self):
+        return self.conn.execute("""CREATE TABLE IF NOT EXISTS Products(
+          product_id INTEGER PRIMARY KEY,
           product_name text,
-          product_price real,
-          product_barcode integer
-)""")
+          product_price real
+        )""")
 
-# Commit changes
-conn.commit()
+    def populate_data(self):
+        for index, row in df.iterrows():
+            self.cursor.execute("""
+          INSERT INTO Products (product_name, product_price) VALUES (?, ?)
+        """, (row['Product name'], row['Price']))
+        print("data successfully imported")
+    
 
-# CLose connection
-conn.close()
-
+db = Database()
