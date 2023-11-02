@@ -1,5 +1,6 @@
 import tkinter as tk
-from customtkinter import CTkToplevel, CTkEntry
+from customtkinter import CTkToplevel, CTkEntry, CTkLabel, CTkButton
+import sqlite3
 
 
 class MenuBar:
@@ -11,7 +12,7 @@ class MenuBar:
         menu_bar = tk.Menu(self.master)
 
         file_menu = tk.Menu(menu_bar, tearoff=0)
-        file_menu.add_command(label="New", command=self.file_new)
+        file_menu.add_command(label="Add new", command=self.file_new)
         file_menu.add_command(label="Open", command=self.file_open)
         file_menu.add_command(label="Save", command=self.file_save)
         file_menu.add_separator()
@@ -24,11 +25,16 @@ class MenuBar:
     def file_new(self):
         new_window = CTkToplevel(self.master)
         new_window.title("Add Products")
-        new_window.geometry("400x300")
-        text_name = CTkEntry(new_window, width=200, height=50, placeholder_text="Enter a product")
-        text_name.pack(padx=20, pady=20)
-        text_price = CTkEntry(new_window, width=200, height=50, placeholder_text="Enter a price")
-        text_price.pack(padx=20, pady=20)
+
+        CTkLabel(new_window, text="Product Name:").grid(row=0, column=0)
+        CTkLabel(new_window, text="Product Price:").grid(row=1, column=0)
+        product_name_entry = CTkEntry(new_window)
+        product_price_entry = CTkEntry(new_window)
+        product_name_entry.grid(row=0, column=1)
+        product_price_entry.grid(row=1, column=1)
+
+        save_button = CTkButton(new_window, text="Save", command=lambda: self.save_to_database(product_name_entry.get(), product_price_entry.get(), new_window))
+        save_button.grid(row=2, columnspan=2)
 
     def file_open(self):
         print("File Opened!")
@@ -38,3 +44,12 @@ class MenuBar:
 
     def file_exit(self):
         self.master.quit()
+
+    def save_to_database(self, name, price, window):
+        conn = sqlite3.connect('inventory.db')
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO Products (product_name, product_price) VALUES (?, ?)", (name, price))
+        conn.commit()
+        conn.close()
+        window.destroy()
+        print("Saved to database!")
