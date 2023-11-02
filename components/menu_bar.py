@@ -1,4 +1,5 @@
 import tkinter as tk
+from customtkinter import CTkToplevel, CTkEntry
 
 
 class MenuBar:
@@ -21,7 +22,13 @@ class MenuBar:
         self.master.config(menu=menu_bar)
 
     def file_new(self):
-        print("New File Created")
+        new_window = CTkToplevel(self.master)
+        new_window.title("Add Products")
+        new_window.geometry("400x300")
+        text_name = CTkEntry(new_window, width=200, height=50, placeholder_text="Enter a product")
+        text_name.pack(padx=20, pady=20)
+        text_price = CTkEntry(new_window, width=200, height=50, placeholder_text="Enter a price")
+        text_price.pack(padx=20, pady=20)
 
     def file_open(self):
         print("File Opened!")
