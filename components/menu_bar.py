@@ -37,4 +37,4 @@ class MenuBar:
         print("File Saved!")
 
     def file_exit(self):
-        print("You quit!")
+        self.master.quit()
