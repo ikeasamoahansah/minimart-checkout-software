@@ -1,9 +1,8 @@
 import sqlite3
 
-from odf.opendocument import load
+import pandas as pd
 
-odf_file = 'data.odt'
-doc = load(odf_file)
+df = pd.read_excel('products.xlsx')
 
 
 class Database:
@@ -17,6 +16,7 @@ class Database:
         self.conn.close()
         
     def create(self):
+        """Create a database file if it does not exist already"""
         return self.conn.execute("""CREATE TABLE IF NOT EXISTS Products(
           product_id INTEGER PRIMARY KEY,
           product_name text,
@@ -24,13 +24,11 @@ class Database:
         )""")
 
     def populate_data(self):
-      for sheet in doc.spreadsheet.getElementsByType("table:table"):
-          for row in sheet.getElementsByType("table:table-row")[1:]:
-              data = [cell.firstChild.data for cell in row.getElementsByType("table:table-cell")]
-              self.cursor.execute("""
-                INSERT INTO Products (product_name, product_price) VALUES (?,?)
-              """, (data[0], float(data[1])))
-          print("Data imported successfully")
-    
+      """Prepopulate the database"""
+      for index, row in df.iterrows():
+        self.cursor.execute('''
+          INSERT INTO Products (product_name, product_price) VALUES (?, ?)
+        ''',  (row['Product name'], row['Price']))
+      print("Data populated")
 
 db = Database()
