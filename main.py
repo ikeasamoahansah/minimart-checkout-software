@@ -1,4 +1,5 @@
 import customtkinter
+from components import menu_bar
 
 
 class Main(customtkinter.CTk):
@@ -13,4 +14,5 @@ class Main(customtkinter.CTk):
         print("Button clicked")
 
 app = Main()
+menu = menu_bar.MenuBar(app)
 app.mainloop()
