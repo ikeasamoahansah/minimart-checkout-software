@@ -10,3 +10,5 @@ Offers Synchronization with Internet Access and Backup technology
 Accessible offline as well.
 
 Built with customTkinter
+
+![image](https://github.com/Me45y63/minimart-checkout-software/assets/66312028/2c184968-2451-41fa-a78c-52a59826f4ce)
