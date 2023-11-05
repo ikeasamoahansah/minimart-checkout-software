@@ -12,10 +12,14 @@ class Checkout:
         checkout_window = CTkToplevel(self.master)
         checkout_window.title("Checkout Window")
 
-        checkout_list = tk.Listbox(checkout_window, width=40, height=10)
+        checkout_list = tk.Listbox(checkout_window, width=40, height=10, selectmode=tk.MULTIPLE)
         checkout_list.pack()
 
-        self.calculate_total_price(checkout_window)
+        total_price_label = CTkLabel(checkout_window, text="Total Price: ")
+        total_price_label.pack(padx=5, pady=5)
+
+        calculate_button = CTkButton(checkout_window, text="Calculate Total", command=lambda: self.calculate_total(checkout_list, total_price_label))
+        calculate_button.pack(padx=20, pady=20)
 
         conn = sqlite3.connect("inventory.db")
         cursor = conn.cursor()
@@ -26,17 +30,12 @@ class Checkout:
         for product in products:
             checkout_list.insert(tk.END, f"{product[0]} - ${product[1]}")
 
-    def calculate_total_price(self, window):
-        total_price_label = CTkLabel(master=window, text="Total Price: ")
-        total_price_label.pack(padx=5, pady=5)
-
-        calculate_button = CTkButton(master=window, text="Calculate Total", command=lambda: self.calculate_total(window, total_price_label))
-        calculate_button.pack(padx=20, pady=20)
-
     def calculate_total(self, checkout_list, total_price_label):
         total_price = 0
+        selected_indices = checkout_list.curselection()
 
-        for item in checkout_list.get(0, tk.END):
+        for index in selected_indices:
+            item = checkout_list.get(index)
             price = float(item.split('$')[-1])
             total_price += price
-        total_price_label.config(text=f"Total Price: ${total_price:.2f}")
+        total_price_label.configure(text=f"Total Price: ${total_price:.2f}")
