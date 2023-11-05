@@ -21,6 +21,9 @@ class Checkout:
         calculate_button = CTkButton(checkout_window, text="Calculate Total", command=lambda: self.calculate_total(checkout_list, total_price_label))
         calculate_button.pack(padx=20, pady=20)
 
+        payment_button = CTkButton(checkout_window, text="Pay")
+        payment_button.pack(padx=20, pady=5)
+
         conn = sqlite3.connect("inventory.db")
         cursor = conn.cursor()
         cursor.execute("SELECT product_name, product_price FROM Products")
