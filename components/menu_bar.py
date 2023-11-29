@@ -1,5 +1,6 @@
 import tkinter as tk
-from customtkinter import CTkToplevel, CTkEntry, CTkLabel, CTkButton
+from customtkinter import CTkToplevel, CTkEntry, CTkButton
+import matplotlib.pyplot as plt
 import sqlite3
 
 
@@ -25,16 +26,17 @@ class MenuBar:
     def file_new(self):
         new_window = CTkToplevel(self.master)
         new_window.title("Add Products")
+        new_window.geometry("300x150")
 
-        CTkLabel(new_window, text="Product Name:").grid(row=0, column=0)
-        CTkLabel(new_window, text="Product Price:").grid(row=1, column=0)
         product_name_entry = CTkEntry(new_window)
         product_price_entry = CTkEntry(new_window)
-        product_name_entry.grid(row=0, column=1)
-        product_price_entry.grid(row=1, column=1)
+        product_name_entry.insert(0, 'Product name')
+        product_price_entry.insert(0, 'Product price')
+        product_name_entry.pack(pady=5)
+        product_price_entry.pack(pady=5)
 
         save_button = CTkButton(new_window, text="Save", command=lambda: self.save_to_database(product_name_entry.get(), product_price_entry.get(), new_window))
-        save_button.grid(row=2, columnspan=2)
+        save_button.pack(pady=5)
 
     def file_open(self):
         print("File Opened!")
@@ -43,6 +45,7 @@ class MenuBar:
         print("File Saved!")
 
     def file_exit(self):
+        plt.close('all')
         self.master.quit()
 
     def save_to_database(self, name, price, window):
@@ -52,4 +55,4 @@ class MenuBar:
         conn.commit()
         conn.close()
         window.destroy()
-        print("Saved to database!")
+        self.file_new()
