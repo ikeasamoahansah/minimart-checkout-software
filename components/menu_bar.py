@@ -3,6 +3,8 @@ from customtkinter import CTkToplevel, CTkEntry, CTkButton
 import matplotlib.pyplot as plt
 import sqlite3
 
+from .search import Search
+
 
 class MenuBar:
     def __init__(self, master):
@@ -40,7 +42,8 @@ class MenuBar:
         save_button.pack(pady=5)
 
     def file_open(self):
-        print("File Opened!")
+        Search(master=self.master)
+        # print("Searching")
 
     def file_save(self):
         print("File Saved!")

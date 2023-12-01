@@ -1,5 +1,5 @@
 import customtkinter
-from components import menu_bar
+from components.menu_bar import MenuBar
 from components.checkout import Checkout
 from components.chart import Chart
 import matplotlib.pyplot as plt
@@ -22,5 +22,5 @@ class Main(customtkinter.CTk):
 
 
 app = Main()
-menu = menu_bar.MenuBar(app)
+menu = MenuBar(app)
 app.mainloop()
