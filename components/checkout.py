@@ -11,6 +11,7 @@ class Checkout:
     def checkout(self):
         checkout_window = CTkToplevel(self.master)
         checkout_window.title("Checkout Window")
+        checkout_window.geometry("800x400")
 
         checkout_list = tk.Listbox(checkout_window, width=40, height=10, selectmode=tk.MULTIPLE)
         checkout_list.pack()
