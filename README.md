@@ -11,4 +11,5 @@ Accessible offline as well.
 
 Built with customTkinter
 
-![image](https://github.com/Me45y63/minimart-checkout-software/assets/66312028/2c184968-2451-41fa-a78c-52a59826f4ce)
+![image](https://github.com/ikeasamoahansah/minimart-checkout-software/assets/66312028/d3b0a932-c01c-4c5a-a8f0-406c378c23f9)
+
