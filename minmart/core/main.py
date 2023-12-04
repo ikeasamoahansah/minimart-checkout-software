@@ -1,5 +1,5 @@
 import customtkinter
-from components.menu_bar import MenuBar
+from layouts.menu_bar import MenuBar
 from components.checkout import Checkout
 from components.chart import Chart
 import matplotlib.pyplot as plt

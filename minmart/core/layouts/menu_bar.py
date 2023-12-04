@@ -3,7 +3,7 @@ from customtkinter import CTkToplevel, CTkEntry, CTkButton
 import matplotlib.pyplot as plt
 import sqlite3
 
-from .search import Search
+from ..components.search import Search
 
 
 class MenuBar:
