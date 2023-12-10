@@ -4,16 +4,19 @@ from payments.payments import Payments
 
 from mtnmomo.collection import Collection
 
-client = Collection({
-    "COLLECTION_USER_ID": os.environ.get("COLLECTION_USER_ID"),
-    "COLLECTION_API_SECRET": os.environ.get("COLLECTION_API_SECRET"),
-    "COLLECTION_PRIMARY_KEY": os.environ.get("COLLECTION_PRIMARY_KEY"),
-})
+client = Collection(
+    {
+        "COLLECTION_USER_ID": os.environ.get("COLLECTION_USER_ID"),
+        "COLLECTION_API_SECRET": os.environ.get("COLLECTION_API_SECRET"),
+        "COLLECTION_PRIMARY_KEY": os.environ.get("COLLECTION_PRIMARY_KEY"),
+    }
+)
+
 
 class MobileMoney(Payments):
     def __init__(self) -> None:
         super().__init__()
-        
+
     async def pay(self, number, amount, ex_id, note, message):
         client.requestToPay(
             mobile=number,
@@ -21,14 +24,13 @@ class MobileMoney(Payments):
             external_id=ex_id,
             payee_note=note,
             payer_message=message,
-            currency="EUR"
+            currency="EUR",
         )
         await self.status(ex_id)
-    
+
     def status(self, ex_id):
-        return client.getTransactionStatus(
-            transaction_id=ex_id
-        )
-    
+        return client.getTransactionStatus(transaction_id=ex_id)
+
+
 # To be done
 # API KEYS OBTAINED

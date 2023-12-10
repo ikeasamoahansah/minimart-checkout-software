@@ -2,6 +2,7 @@ import sqlite3
 import tkinter as tk
 from customtkinter import CTkEntry, CTkToplevel, CTkLabel, CTkButton
 
+
 class Search:
     def __init__(self, master) -> None:
         self.search_results_listbox = None
@@ -19,7 +20,11 @@ class Search:
         search_entry.pack(pady=5)
 
         # Button to trigger the search
-        search_button = CTkButton(search_window, text="Search", command=lambda: self.search_products(search_entry.get()))
+        search_button = CTkButton(
+            search_window,
+            text="Search",
+            command=lambda: self.search_products(search_entry.get()),
+        )
         search_button.pack(pady=5)
 
         # Listbox to display search results
@@ -27,11 +32,14 @@ class Search:
         self.search_results_listbox.pack(pady=20)
 
     def search_products(self, search_term):
-        conn = sqlite3.connect('inventory.db')
+        conn = sqlite3.connect("inventory.db")
         cursor = conn.cursor()
 
         # Execute the search query
-        cursor.execute("SELECT product_name, product_price FROM Products WHERE product_name LIKE ?", ('%' + search_term + '%',))
+        cursor.execute(
+            "SELECT product_name, product_price FROM Products WHERE product_name LIKE ?",
+            ("%" + search_term + "%",),
+        )
         search_results = cursor.fetchall()
 
         conn.close()
@@ -46,4 +54,3 @@ class Search:
         # Display the new search results in the listbox
         for result in search_results:
             self.search_results_listbox.insert(tk.END, f"{result[0]} - ${result[1]}")
-

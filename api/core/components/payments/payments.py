@@ -4,5 +4,3 @@ class Payments:
 
     def pay(self):
         pass
-
-

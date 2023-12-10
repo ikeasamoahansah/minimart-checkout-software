@@ -33,12 +33,18 @@ class MenuBar:
 
         product_name_entry = CTkEntry(new_window)
         product_price_entry = CTkEntry(new_window)
-        product_name_entry.insert(0, 'Product name')
-        product_price_entry.insert(0, 'Product price')
+        product_name_entry.insert(0, "Product name")
+        product_price_entry.insert(0, "Product price")
         product_name_entry.pack(pady=5)
         product_price_entry.pack(pady=5)
 
-        save_button = CTkButton(new_window, text="Save", command=lambda: self.save_to_database(product_name_entry.get(), product_price_entry.get(), new_window))
+        save_button = CTkButton(
+            new_window,
+            text="Save",
+            command=lambda: self.save_to_database(
+                product_name_entry.get(), product_price_entry.get(), new_window
+            ),
+        )
         save_button.pack(pady=5)
 
     def file_open(self):
@@ -49,13 +55,16 @@ class MenuBar:
         print("File Saved!")
 
     def file_exit(self):
-        plt.close('all')
+        plt.close("all")
         self.master.quit()
 
     def save_to_database(self, name, price, window):
-        conn = sqlite3.connect('inventory.db')
+        conn = sqlite3.connect("inventory.db")
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO Products (product_name, product_price) VALUES (?, ?)", (name, price))
+        cursor.execute(
+            "INSERT INTO Products (product_name, product_price) VALUES (?, ?)",
+            (name, price),
+        )
         conn.commit()
         conn.close()
         window.destroy()
