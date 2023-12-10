@@ -2,6 +2,7 @@ import tkinter as tk
 import sqlite3
 
 from customtkinter import CTkToplevel, CTkLabel, CTkButton
+# from payments.momo_pay import MobileMoney
 
 class Checkout:
 
@@ -22,7 +23,7 @@ class Checkout:
         calculate_button = CTkButton(checkout_window, text="Calculate Total", command=lambda: self.calculate_total(checkout_list, total_price_label))
         calculate_button.pack(padx=20, pady=20)
 
-        payment_button = CTkButton(checkout_window, text="Pay")
+        payment_button = CTkButton(checkout_window, text="Pay", command=self.pay_for())
         payment_button.pack(padx=20, pady=5)
 
         conn = sqlite3.connect("inventory.db")
@@ -43,3 +44,6 @@ class Checkout:
             price = float(item.split('$')[-1])
             total_price += price
         total_price_label.configure(text=f"Total Price: ${total_price:.2f}")
+
+    def pay_for(self):
+        return print("Request ongoing!")
