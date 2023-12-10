@@ -14,8 +14,8 @@ class MobileMoney(Payments):
     def __init__(self) -> None:
         super().__init__()
         
-    def pay(self, number, amount, ex_id, note, message):
-        return client.requestToPay(
+    async def pay(self, number, amount, ex_id, note, message):
+        client.requestToPay(
             mobile=number,
             amount=amount,
             external_id=ex_id,
@@ -23,6 +23,7 @@ class MobileMoney(Payments):
             payer_message=message,
             currency="EUR"
         )
+        await self.status(ex_id)
     
     def status(self, ex_id):
         return client.getTransactionStatus(
