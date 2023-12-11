@@ -3,7 +3,7 @@ import sqlite3
 
 from customtkinter import CTkToplevel, CTkLabel, CTkButton
 
-# from payments.momo_pay import MobileMoney
+from .payments.momo_pay import MobileMoney
 
 
 class Checkout:
@@ -13,7 +13,7 @@ class Checkout:
     def checkout(self):
         checkout_window = CTkToplevel(self.master)
         checkout_window.title("Checkout Window")
-        checkout_window.geometry("450x400")
+        checkout_window.geometry("450x300")
 
         checkout_list = tk.Listbox(
             checkout_window, width=40, height=10, selectmode=tk.MULTIPLE
@@ -26,14 +26,9 @@ class Checkout:
         calculate_button = CTkButton(
             checkout_window,
             text="Calculate Total",
-            command=lambda: self.calculate_total(checkout_list, total_price_label),
+            command=lambda: self.checkout_processing(checkout_list, total_price_label),
         )
         calculate_button.pack(padx=20, pady=20)
-
-        payment_button = CTkButton(
-            checkout_window, text="Pay", command=lambda: self.pay_for()
-        )
-        payment_button.pack(padx=20, pady=5)
 
         conn = sqlite3.connect("inventory.db")
         cursor = conn.cursor()
@@ -54,5 +49,13 @@ class Checkout:
             total_price += price
         total_price_label.configure(text=f"Total Price: ${total_price:.2f}")
 
-    def pay_for(self):
-        return print("Request ongoing!")
+        return total_price
+
+    def checkout_processing(self, checkout_list, total_price_label):
+        total_price = self.calculate_total(checkout_list, total_price_label)
+
+        self.payment_processing(total_price)
+
+    def payment_processing(self, price):
+        m = MobileMoney()
+        return m.pay(number="+233257262110", amount=f"{price}")
