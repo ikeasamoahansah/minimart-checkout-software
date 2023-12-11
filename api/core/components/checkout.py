@@ -13,7 +13,7 @@ class Checkout:
     def checkout(self):
         checkout_window = CTkToplevel(self.master)
         checkout_window.title("Checkout Window")
-        checkout_window.geometry("800x400")
+        checkout_window.geometry("450x400")
 
         checkout_list = tk.Listbox(
             checkout_window, width=40, height=10, selectmode=tk.MULTIPLE
@@ -30,7 +30,9 @@ class Checkout:
         )
         calculate_button.pack(padx=20, pady=20)
 
-        payment_button = CTkButton(checkout_window, text="Pay", command=self.pay_for())
+        payment_button = CTkButton(
+            checkout_window, text="Pay", command=lambda: self.pay_for()
+        )
         payment_button.pack(padx=20, pady=5)
 
         conn = sqlite3.connect("inventory.db")
