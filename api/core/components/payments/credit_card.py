@@ -1,4 +1,4 @@
-from payments import Payments
+from .payments import Payments
 
 
 class CreditCard(Payments):
