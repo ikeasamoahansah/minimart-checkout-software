@@ -4,3 +4,6 @@ class Invoice:
 
     def create_invoice(self):
         pass
+
+    def delete_invoice(self):
+        pass
