@@ -4,5 +4,3 @@ class Invoice:
 
     def create_invoice(self):
         pass
-
-    
