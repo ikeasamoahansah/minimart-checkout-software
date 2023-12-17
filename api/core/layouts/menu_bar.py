@@ -69,3 +69,5 @@ class MenuBar:
         conn.close()
         window.destroy()
         self.file_new()
+
+#big layout loading
