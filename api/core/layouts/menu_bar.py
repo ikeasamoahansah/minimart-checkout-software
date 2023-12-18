@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import sqlite3
 
 from components.search import Search
+from components.checkout import Checkout
 
 
 class MenuBar:
@@ -16,9 +17,9 @@ class MenuBar:
         menu_bar.config(background="#808080")
 
         file_menu = tk.Menu(menu_bar, tearoff=0)
-        file_menu.add_command(label="Add new", command=self.file_new)
         file_menu.add_command(label="Open", command=self.file_open)
-        file_menu.add_command(label="Save", command=self.file_save)
+        file_menu.add_command(label="Add new", command=self.file_new)
+        file_menu.add_command(label="Checkout", command=self.checkout)
         file_menu.add_separator()
         file_menu.add_command(label="Exit", command=self.file_exit)
 
@@ -51,8 +52,8 @@ class MenuBar:
         Search(master=self.master)
         # print("Searching")
 
-    def file_save(self):
-        print("File Saved!")
+    def checkout(self):
+        return Checkout.checkout(self)
 
     def file_exit(self):
         plt.close("all")
@@ -70,4 +71,5 @@ class MenuBar:
         window.destroy()
         self.file_new()
 
-#big layout loading
+
+# big layout loading
