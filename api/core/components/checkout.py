@@ -9,9 +9,10 @@ from .payments.momo_pay import MobileMoney
 class Checkout:
     def __init__(self, master):
         self.master = master
+        self.checkout(master)
 
-    def checkout(self):
-        checkout_window = CTkToplevel(self.master)
+    def checkout(self, master):
+        checkout_window = CTkToplevel(master)
         checkout_window.title("Checkout Window")
         checkout_window.geometry("450x300")
 

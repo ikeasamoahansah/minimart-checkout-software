@@ -10,16 +10,16 @@ from components.checkout import Checkout
 class MenuBar:
     def __init__(self, master):
         self.master = master
-        self.create_menu_bar()
+        self.create_menu_bar(master)
 
-    def create_menu_bar(self):
-        menu_bar = tk.Menu(self.master)
+    def create_menu_bar(self, master):
+        menu_bar = tk.Menu(master)
         menu_bar.config(background="#808080")
 
         file_menu = tk.Menu(menu_bar, tearoff=0)
         file_menu.add_command(label="Open", command=self.file_open)
         file_menu.add_command(label="Add new", command=self.file_new)
-        file_menu.add_command(label="Checkout", command=self.checkout)
+        file_menu.add_command(label="Checkout", command=lambda: self.checkout(master))
         file_menu.add_separator()
         file_menu.add_command(label="Exit", command=self.file_exit)
 
@@ -52,8 +52,8 @@ class MenuBar:
         Search(master=self.master)
         # print("Searching")
 
-    def checkout(self):
-        return Checkout.checkout(self)
+    def checkout(self, master):
+        return Checkout(master)
 
     def file_exit(self):
         plt.close("all")
