@@ -14,9 +14,16 @@ class MenuBar:
 
     def create_menu_bar(self, master):
         menu_bar = tk.Menu(master)
-        menu_bar.config(background="#808080")
+        menu_bar.config(
+            background="#303234",
+            foreground="#FFF"
+        )
 
         file_menu = tk.Menu(menu_bar, tearoff=0)
+        file_menu.config(
+            background="#303234",
+            foreground="#FFF"
+        )
         file_menu.add_command(label="Open", command=self.file_open)
         file_menu.add_command(label="Add new", command=self.file_new)
         file_menu.add_command(label="Checkout", command=lambda: self.checkout(master))

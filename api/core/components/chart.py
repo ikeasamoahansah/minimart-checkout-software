@@ -12,9 +12,9 @@ conn.close()
 class Chart:
     def __init__(self, master) -> None:
         self.master = master
-        self.create_chart(products)
+        self.create_chart(master, products)
 
-    def create_chart(self, products):
+    def create_chart(self, master, products):
         product_names = [product[0] for product in products]
         product_prices = [product[1] for product in products]
 
@@ -26,6 +26,6 @@ class Chart:
         ax.set_title("Product Prices")
 
         # Embed bar chart in TKinter window
-        canvas = FigureCanvasTkAgg(fig, master=self.master)
+        canvas = FigureCanvasTkAgg(fig, master=master)
         canvas.draw()
         canvas.get_tk_widget().pack(pady=20)

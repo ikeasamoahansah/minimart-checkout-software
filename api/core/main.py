@@ -1,3 +1,4 @@
+import tkinter as tk
 import customtkinter
 from layouts.menu_bar import MenuBar
 from components.chart import Chart
@@ -13,13 +14,24 @@ class Main(customtkinter.CTk):
             self, text="Load Chart", command=self.load_chart
         )
         self.button.pack(padx=20, pady=20)
+        self.lf = tk.LabelFrame(
+            self,
+            text="Chart Pane"   
+        )
+        self.lf.config(
+            background="#303234",
+            foreground="#FFF",
+            width=700,
+            height=600
+        )
+        self.lf.pack(padx=50, pady=50)
         self.bind("<Destroy>", self.on_destroy)
 
     def on_destroy(self, event):
         plt.close("all")
 
     def load_chart(self):
-        Chart(self)
+        Chart(master=self.lf)
 
 
 app = Main()
