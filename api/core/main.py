@@ -34,6 +34,8 @@ class Main(customtkinter.CTk):
         Chart(master=self.lf)
 
 
-app = Main()
-menu = MenuBar(app)
-app.mainloop()
+if __name__ == "__main__":
+    app = Main()
+    menu = MenuBar(app)
+    app.mainloop()
+    
