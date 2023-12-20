@@ -1,6 +1,12 @@
+import sqlite3
+
+
 class Invoice:
     def __init__(self) -> None:
         pass
 
-    def create_invoice(self):
+    def new_invoice(self):
         pass
+
+
+# creating a pass

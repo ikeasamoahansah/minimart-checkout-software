@@ -14,16 +14,8 @@ class Main(customtkinter.CTk):
             self, text="Load Chart", command=self.load_chart
         )
         self.button.pack(padx=20, pady=20)
-        self.lf = tk.LabelFrame(
-            self,
-            text="Chart Pane"   
-        )
-        self.lf.config(
-            background="#303234",
-            foreground="#FFF",
-            width=700,
-            height=600
-        )
+        self.lf = tk.LabelFrame(self, text="Chart Pane")
+        self.lf.config(background="#303234", foreground="#FFF", width=700, height=600)
         self.lf.pack(padx=50, pady=50)
         self.bind("<Destroy>", self.on_destroy)
 
@@ -38,4 +30,3 @@ if __name__ == "__main__":
     app = Main()
     menu = MenuBar(app)
     app.mainloop()
-    
