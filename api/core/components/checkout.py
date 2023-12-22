@@ -25,7 +25,7 @@ class Checkout:
         total_price_label = CTkLabel(checkout_window, textvariable=self.pricemsg)
         total_price_label.pack(padx=5, pady=5)
 
-        checkout_list.bind("<<ListboxSelect>>", self.calculate_total(checkout_list))
+        checkout_list.bind("<Double-1>", self.calculate_total(checkout_list))
 
         calculate_button = CTkButton(
             checkout_window,
