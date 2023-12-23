@@ -10,29 +10,30 @@ class Checkout:
     def __init__(self, master):
         self.master = master
         self.pricemsg = tk.StringVar()
+        self.pricemsg.set("Total: 0")
         self.checkout(master)
 
     def checkout(self, master):
         checkout_window = CTkToplevel(master)
         checkout_window.title("Checkout Window")
-        checkout_window.geometry("450x300")
+        checkout_window.geometry("800x400")
         
         checkout_list = tk.Listbox(
-            checkout_window, width=40, height=10, selectmode=tk.MULTIPLE
+            checkout_window, width=20, height=10, selectmode=tk.MULTIPLE
         )
-        checkout_list.pack(pady=5)
+        checkout_list.grid(column=3, row=1, columnspan=3)
 
         total_price_label = CTkLabel(checkout_window, textvariable=self.pricemsg)
-        total_price_label.pack(padx=5, pady=5)
+        total_price_label.grid(column=3, row=2)
 
-        checkout_list.bind("<Double-1>", self.calculate_total(checkout_list))
+        checkout_list.bind("<ButtonRelease-1>", lambda event:self.calculate_total(checkout_list))
 
         calculate_button = CTkButton(
             checkout_window,
             text="Pay",
             command=lambda: self.checkout_processing(checkout_list),
         )
-        calculate_button.pack(padx=20, pady=20)
+        calculate_button.grid(column=3, row=3)
 
         conn = sqlite3.connect("inventory.db")
         cursor = conn.cursor()
@@ -50,7 +51,7 @@ class Checkout:
             item = checkout_list.get(index)
             price = float(item.split("$")[-1])
             total_price += price
-        self.pricemsg.set(f"{total_price}")
+        self.pricemsg.set(f"Total: {total_price}")
 
     def get_total(self, checkout_list):
         total_price = 0
