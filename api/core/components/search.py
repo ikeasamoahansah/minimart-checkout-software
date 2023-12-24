@@ -9,27 +9,18 @@ class Search:
         self.search_box(master)
 
     def search_box(self, master):
-        search_window = CTkToplevel(master)
-        search_window.title("Search Products")
-        search_window.geometry("800x300")
-
-        CTkLabel(search_window, text="Search Product:").pack()
+        CTkLabel(master, text="Search Product:").grid(column=0, row=0, pady=5, padx=10)
 
         # Entry widget for user input
-        search_entry = CTkEntry(search_window)
-        search_entry.pack(pady=5)
-
-        # Button to trigger the search
-        search_button = CTkButton(
-            search_window,
-            text="Search",
-            command=lambda: self.search_products(search_entry.get()),
+        search_entry = CTkEntry(master)
+        search_entry.grid(column=0, row=0, columnspan=2, pady=5)
+        search_entry.bind(
+            "<Return>", lambda event: self.search_products(search_entry.get())
         )
-        search_button.pack(pady=5)
 
         # Listbox to display search results
-        self.search_results_listbox = tk.Listbox(search_window, width=40, height=10)
-        self.search_results_listbox.pack(pady=20)
+        self.search_results_listbox = tk.Listbox(master, width=40, height=10)
+        self.search_results_listbox.grid(column=0, row=2, columnspan=2)
 
     def search_products(self, search_term):
         conn = sqlite3.connect("inventory.db")

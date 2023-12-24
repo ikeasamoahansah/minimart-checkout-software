@@ -3,7 +3,6 @@ from customtkinter import CTkToplevel, CTkEntry, CTkButton
 import matplotlib.pyplot as plt
 import sqlite3
 
-from components.search import Search
 from components.checkout import Checkout
 
 
@@ -18,7 +17,6 @@ class MenuBar:
 
         file_menu = tk.Menu(menu_bar, tearoff=0)
         file_menu.config(background="#303234", foreground="#FFF")
-        file_menu.add_command(label="Open", command=self.file_open)
         file_menu.add_command(label="Add new", command=self.file_new)
         file_menu.add_command(label="Checkout", command=lambda: self.checkout(master))
         file_menu.add_separator()
@@ -50,8 +48,7 @@ class MenuBar:
         save_button.pack(pady=5)
 
     def file_open(self):
-        Search(master=self.master)
-        # print("Searching")
+        print("Searching")
 
     def checkout(self, master):
         return Checkout(master)
