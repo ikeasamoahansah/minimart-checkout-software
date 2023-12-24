@@ -41,15 +41,6 @@ class Checkout:
         )
         calculate_button.grid(column=1, row=3, sticky="s", pady=5, padx=5)
 
-        conn = sqlite3.connect("inventory.db")
-        cursor = conn.cursor()
-        cursor.execute("SELECT product_name, product_price FROM Products")
-        products = cursor.fetchall()
-        conn.close()
-
-        for product in products:
-            checkout_list.insert(tk.END, f"{product[0]} - ${product[1]}")
-
     def calculate_total(self, checkout_list):
         total_price = 0
         idx = checkout_list.curselection()
