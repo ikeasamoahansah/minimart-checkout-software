@@ -1,5 +1,4 @@
 import tkinter as tk
-import sqlite3
 
 from customtkinter import CTkToplevel, CTkLabel, CTkButton
 
@@ -12,6 +11,7 @@ class Checkout:
         self.master = master
         self.pricemsg = tk.StringVar()
         self.pricemsg.set("Total: 0")
+        self.search_listbox = None
         self.checkout(master)
 
     def checkout(self, master):
@@ -25,6 +25,7 @@ class Checkout:
             checkout_window, width=20, height=10, selectmode=tk.MULTIPLE
         )
         checkout_list.grid(column=2, row=2)
+
         CTkLabel(checkout_window, text="Invoice/Checkout").grid(column=2, row=0, pady=5)
 
         total_price_label = CTkLabel(checkout_window, textvariable=self.pricemsg)
@@ -33,7 +34,9 @@ class Checkout:
         checkout_list.bind(
             "<ButtonRelease-1>", lambda event: self.calculate_total(checkout_list)
         )
-        Search(checkout_window)
+
+        self.search_listbox = Search(checkout_window)
+
         calculate_button = CTkButton(
             checkout_window,
             text="Pay",

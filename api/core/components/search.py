@@ -1,6 +1,6 @@
 import sqlite3
 import tkinter as tk
-from customtkinter import CTkEntry, CTkToplevel, CTkLabel, CTkButton
+from customtkinter import CTkEntry, CTkLabel
 
 
 class Search:
@@ -21,6 +21,17 @@ class Search:
         # Listbox to display search results
         self.search_results_listbox = tk.Listbox(master, width=40, height=10)
         self.search_results_listbox.grid(column=0, row=2, columnspan=2)
+        self.search_results_listbox.bind(
+            "<ButtonRelease-1>",
+            lambda event: self.add_to_invoice(self.search_results_listbox),
+        )
+
+    def add_to_invoice(self, box):
+        selected_index = box.curselection()
+        if selected_index:
+            selected_item = box.get(selected_index[0])
+
+            return selected_item
 
     def search_products(self, search_term):
         conn = sqlite3.connect("inventory.db")
