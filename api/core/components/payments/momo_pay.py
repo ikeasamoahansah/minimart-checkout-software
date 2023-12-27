@@ -1,10 +1,9 @@
 import os
 
-from .payments import Payments
-
+from decouple import config
 from mtnmomo.collection import Collection
 
-from decouple import config
+from .payments import Payments
 
 client = Collection(
     config={
@@ -33,5 +32,3 @@ class MobileMoney(Payments):
     #     return client.getTransactionStatus(transaction_id=ex_id)
 
 
-# To be done
-# API KEYS OBTAINED

@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from customtkinter import CTkToplevel, CTkLabel, CTkButton
+from customtkinter import CTkButton, CTkLabel, CTkToplevel
 
 from .payments.momo_pay import MobileMoney
 from .search import Search
